@@ -101,7 +101,7 @@ public class BulletMine {
     }
 
     public boolean collideWithEdge(){
-        if(getBody().getPosition().y - 175.5 < -180 || getBody().getPosition().x < -450 || getBody().getPosition().x > 45){
+        if(getBody().getPosition().y - 175.5 < -180 || (getBody().getPosition().x < -13.7) || (getBody().getPosition().x > 13.7)){
             return true;
         }
         return false;

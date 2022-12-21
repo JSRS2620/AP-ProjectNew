@@ -25,10 +25,10 @@ public class PauseScreen implements Screen {
         private Tank tank1, tank2;
         Texture tank1Texture, tank2Texture;
         Texture healthBar, healthBar2, fuelBar, fuelBar2;
-        Texture backgroundTexture, groundTexture1,groundTexture2;
+        Texture backgroundTexture, groundTexture1,groundTexture2,pauseMenuImg;
         Image tank1Image, tank2Image;
         Image healthBarImage1, healthBarImage2, fuelBarImage1, fuelBarImage2;
-        Image backgroundImage, groundImage1,groundImage2;
+        Image backgroundImage, groundImage1,groundImage2,pauseMenuImage;
         Texture pauseMenu;
         private Stage stage;
 
@@ -42,6 +42,8 @@ public class PauseScreen implements Screen {
             this.fuelBar2 = fuelBar2;
             Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
             stage = new Stage(new ScreenViewport());
+
+
 
             TankTextureFactory tankTextureFactory = new TankTextureFactory();
             tank1Texture = tankTextureFactory.generateTankTexture(tank1.getTankType());
@@ -102,14 +104,13 @@ public class PauseScreen implements Screen {
             //create a resume button
             final Button resumeButton = new TextButton("Resume",mySkin,"small");
             //take input
-            Gdx.input.setInputProcessor(stage);
-            float resumecol_width = Gdx.graphics.getWidth()/6+75;
+            float resumecol_width = Gdx.graphics.getWidth()/6;
             float resumerow_height = Gdx.graphics.getHeight()/3+200;
             resumeButton.setSize(resumecol_width,resumerow_height/6);
 
-            float resumex = resumecol_width+225; //center button in the middle of the screen
+            float resumex = resumecol_width+350; //center button in the middle of the screen
             float resumey = Gdx.graphics.getHeight()/2 - resumerow_height/2+250;
-            resumeButton.setPosition(resumex,resumey);
+            resumeButton.setPosition(resumex+100,resumey+20);
             resumeButton.addListener(new InputListener(){
                 @Override
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -125,8 +126,65 @@ public class PauseScreen implements Screen {
                     return true;
                 }
             });
-            stage.addActor(resumeButton);
 
+
+            final Button saveButton = new TextButton("Save",mySkin,"small");
+            float savecol_width = Gdx.graphics.getWidth()/6;
+            float saverow_height = Gdx.graphics.getHeight()/3+200;
+            saveButton.setSize(savecol_width,saverow_height/6);
+
+            float savex = resumecol_width+350; //center button in the middle of the screen
+            float savey = Gdx.graphics.getHeight()/2 - saverow_height/2+150;
+            saveButton.setPosition(savex+100,savey);
+            saveButton.addListener(new InputListener(){
+                @Override
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+//                outputLabel.setText("Press a Button");
+//                    game.setScreen(new InGameScene(game, tank1, tank2, healthBar, healthBar2, fuelBar, fuelBar2));
+
+                }
+                @Override
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+//                outputLabel.setText("Pressed Text Button");
+                    //change button color to blue
+                    saveButton.setColor(0,0,1,1);
+                    return true;
+                }
+            });
+
+
+            final Button quitButton = new TextButton("Quit",mySkin,"small");
+            float quitcol_width = Gdx.graphics.getWidth()/6;
+            float quitrow_height = Gdx.graphics.getHeight()/3+200;
+            quitButton.setSize(quitcol_width,quitrow_height/6);
+
+            float quitx = resumecol_width+350; //center button in the middle of the screen
+            float quity = Gdx.graphics.getHeight()/2 - quitrow_height/2+50;
+            quitButton.setPosition(quitx+100,quity-20);
+            quitButton.addListener(new InputListener(){
+                @Override
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    game.setScreen(new MainMenuScreen(game));
+
+                }
+                @Override
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+//                outputLabel.setText("Pressed Text Button");
+                    //change button color to blue
+                    quitButton.setColor(0,0,1,1);
+                    return true;
+                }
+            });
+
+            pauseMenuImg = new Texture("InGameStuff/PauseMenu2.png");
+            pauseMenuImage = new Image(pauseMenuImg);
+            pauseMenuImage.setSize(550, 550);
+            pauseMenuImage.setPosition(625, 160);
+            stage.addActor(pauseMenuImage);
+
+            stage.addActor(resumeButton);
+            stage.addActor(saveButton);
+            stage.addActor(quitButton);
 
 
 

@@ -23,6 +23,23 @@ public class Coalition_Tank extends Tank {
 
     }
 
+    public Coalition_Tank(World world, int x, int y, int width, int height, String tankType, int health, int fuel) {
+        super(world, x, y, width, height, tankType);
+        this.health = health;
+        this.fuel = fuel;
+
+        this.speed = 10;
+        this.isAlive = true;
+        this.maxFuel = 200;
+        this.maxPowerLaunch = 100;
+        this.isSurpriseBoxActive = false;
+        this.body.setLinearDamping(20.5f);
+
+        //set userdata
+        this.body.setUserData(this);
+
+    }
+
     public int getMaxPowerLaunch() {
         return maxPowerLaunch;
     }

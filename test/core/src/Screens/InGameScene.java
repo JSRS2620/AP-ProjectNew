@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
 
@@ -45,16 +45,35 @@ public class InGameScene implements Screen {
 
     private boolean player1Turn = true;
 
+    private String tank1powerString = "0";
+    private String tank2powerString = "0";
+    private String tank1angleString = "0";
+    private String tank2angleString = "0";
+
+    private float tank1power = 0;
+    private float tank2power = 0;
+    private float tank1angle = 0;
+    private float tank2angle = 0;
+
+    Button power1 = new Button(new Button.ButtonStyle());
+    Button power2 = new Button(new Button.ButtonStyle());
+    Button angle1 = new Button(new Button.ButtonStyle());
+    Button angle2 = new Button(new Button.ButtonStyle());
+    Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+
     //New Game
     public InGameScene(MyGdxGame game, String typetank1, String typetank2) {
         this.game = game;
         //world and debugRenderer
-        world = new World(new Vector2(0, -98.1f), false);
+        world = new World(new Vector2(0, -4.81f), false);
         debugRenderer = new Box2DDebugRenderer();
         this.world.setContactListener(new MyContactListener());
         stage = new Stage(new ScreenViewport());
+
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+
+
 
         //decrease air friction
 //        world.setContactFilter(new ContactFilter() {
@@ -97,7 +116,7 @@ public class InGameScene implements Screen {
         //create ground
         ground = createBox(0, -202, 1280, 102, true);
         //add friction to ground
-        ground.getFixtureList().get(0).setFriction(0.5f);
+        ground.getFixtureList().get(0).setFriction(1.5f);
         //create left wall and right wall
         leftWall = createBox(-470, 0, 32, 720, true);
         rightWall = createBox(470, 0, 32, 720, true);
@@ -180,12 +199,46 @@ public class InGameScene implements Screen {
 
 
 
+        //create two buttons
+        power1 = new TextButton(tank1powerString,mySkin,"small");
+        float power_width = Gdx.graphics.getWidth()/6;
+        float power_height = Gdx.graphics.getHeight()/3;
+        power1.setSize(10,10);
+        float power1x = power_width-400; //center button in the middle of the screen
+        float power1y = Gdx.graphics.getHeight()/2 - power_height/2-1;
+        power1.setPosition(20,60);
+        stage.addActor(power1);
+
+        angle1 = new TextButton(tank1angleString,mySkin,"small");
+        angle1.setSize(10,10);
+        float angle1x = power_width-100; //center button in the middle of the screen
+        float angle1y = Gdx.graphics.getHeight()/2 - power_height/2-1;
+        angle1.setPosition(140,60);
+        stage.addActor(angle1);
+
+
+        power2 = new TextButton(tank2powerString,mySkin,"small");
+        power2.setSize(10,10);
+        float power2x = power_width+400; //center button in the middle of the screen
+        float power2y = Gdx.graphics.getHeight()/2 - power_height/2-100;
+        power2.setPosition(1720,60);
+        stage.addActor(power2);
+
+
+        angle2 = new TextButton(tank2angleString,mySkin,"small");
+        angle2.setSize(10,10);
+        float angle2x = power_width+200; //center button in the middle of the screen
+        float angle2y = Gdx.graphics.getHeight()/2 - power_height/2-100;
+        angle2.setPosition(1600,60);
+        stage.addActor(angle2);
+
+
     }
     //Resume Game
-    public InGameScene(MyGdxGame game, Tank tank1, Tank tank2, Texture healthBar1, Texture healthBar2, Texture fuelBar1, Texture fuelBar2) {
+    public InGameScene(MyGdxGame game, Tank tankresume1, Tank tankresume2, Texture healthBar1, Texture healthBar2, Texture fuelBar1, Texture fuelBar2) {
         this.game = game;
         //world and debugRenderer
-        world = new World(new Vector2(0, -98.1f), false);
+        world = new World(new Vector2(0, -4.81f), false);
         debugRenderer = new Box2DDebugRenderer();
         this.world.setContactListener(new MyContactListener());
         stage = new Stage(new ScreenViewport());
@@ -201,14 +254,14 @@ public class InGameScene implements Screen {
 
 
         TankFactory tankFactory = new TankFactory();
-        this.tank1 = tank1;
-        this.tank2 = tank2;
-        this.tank1.setWorld(world);
-        this.tank2.setWorld(world);
-        tank1.resetFuel(); //reset fuel
-        tank2.resetFuel(); //reset fuel
-        String typetank1 = tank1.getTankType();
-        String typetank2 = tank2.getTankType();
+        //tank1 = tankFactory.generateTankResume(world,(int) tankresume1.getBody().getPosition().x,(int) tankresume1.getBody().getPosition().y,60,60,tankresume1.getTankType(),tankresume1.getHealth(),tankresume1.getFuel());
+       // tank2 = tankFactory.generateTankResume(world,(int) tankresume2.getBody().getPosition().x,(int) tankresume2.getBody().getPosition().y,60,60,tankresume2.getTankType(),tankresume2.getHealth(),tankresume2.getFuel());
+        //tank1.resetFuel(); //reset fuel
+        //tank2.resetFuel(); //reset fuel
+        String typetank1 = tankresume1.getTankType();
+        String typetank2 = tankresume2.getTankType();
+        tank1 = tankFactory.generateTank(world, -400, -100, 54, 28, typetank1);
+        tank2 = tankFactory.generateTank(world, 0, -100, 54, 28, typetank2);
         //player2 = createBox(400,100,54,28,false);
 
         bulletMine1 = new BulletMine(world,-400,-400,10,10);
@@ -216,7 +269,6 @@ public class InGameScene implements Screen {
 
 
 
-        //GroundObject groundObject = GroundObject.getInstance(world,0,-202,1280,102, true);
 
         //create ground
         ground = createBox(0, -202, 1280, 102, true);
@@ -247,12 +299,6 @@ public class InGameScene implements Screen {
 
         tank1Image.setSize(60,60);
         tank2Image.setSize(60,60);
-//        if(typetank1.equals("Spectre")){
-//            tank1Image.setSize(70,50);
-//        }
-//        if(typetank2.equals("Spectre")){
-//            tank2Image.setSize(70,50);
-//        }
         bullet1Image.setSize(10,10);
         bullet2Image.setSize(10,10);
 
@@ -376,6 +422,117 @@ public class InGameScene implements Screen {
         tank1.getPosition().setX(tank1Pos.x); tank1.getPosition().setY(tank1Pos.y);
         tank2.getPosition().setX(tank2Pos.x); tank2.getPosition().setY(tank2Pos.y);
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            if(player1Turn==true){
+                tank1power += 1;
+                tank1powerString = Integer.toString((int)tank1power);
+                //remove button from stage
+                stage.getActors().removeValue(power1, true);
+                //create new button with new power
+                power1 = new TextButton(tank1powerString, mySkin);
+                power1.setPosition(20, 60);
+                power1.setSize(5, 5);
+                stage.addActor(power1);
+            }
+            else{
+                tank2power += 1;
+                tank2powerString = Integer.toString((int)tank2power);
+                //remove button from stage
+                stage.getActors().removeValue(power2, true);
+                //create new button with new power
+                power2 = new TextButton(tank2powerString, mySkin);
+                power2.setPosition(1720, 60);
+                power2.setSize(5, 5);
+                stage.addActor(power2);
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            if(player1Turn==true){
+                tank1power -= 1;
+                if(tank1power < 0) {
+                    tank1power = 0;
+                }
+                tank1powerString = Integer.toString((int)tank1power);
+                //remove button from stage
+                stage.getActors().removeValue(power1, true);
+                //create new button with new power
+                power1 = new TextButton(tank1powerString, mySkin);
+                power1.setPosition(20, 60);
+                power1.setSize(5, 5);
+                stage.addActor(power1);
+            }
+            else{
+                tank2power -= 1;
+                if(tank2power < 0) {
+                    tank2power = 0;
+                }
+                tank2powerString = Integer.toString((int)tank2power);
+                //remove button from stage
+                stage.getActors().removeValue(power2, true);
+                //create new button with new power
+                power2 = new TextButton(tank2powerString, mySkin);
+                power2.setPosition(1720, 60);
+                power2.setSize(5, 5);
+                stage.addActor(power2);
+            }
+        }
+        //if key pressed is A reduce angle
+        if(Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+            if(player1Turn==true){
+                tank1angle -= 1;
+                if(tank1angle < 0) {
+                    tank1angle = 0;
+                }
+                tank1angleString = Integer.toString((int)tank1angle);
+                //remove button from stage
+                stage.getActors().removeValue(angle1, true);
+                //create new button with new angle
+                angle1 = new TextButton(tank1angleString, mySkin);
+                angle1.setPosition(140, 60);
+                angle1.setSize(5, 5);
+                stage.addActor(angle1);
+            }
+            else{
+                tank2angle -= 1;
+                if(tank2angle < 0) {
+                    tank2angle = 0;
+                }
+                tank2angleString = Integer.toString((int)tank2angle);
+                //remove button from stage
+                stage.getActors().removeValue(angle2, true);
+                //create new button with new angle
+                angle2 = new TextButton(tank2angleString, mySkin);
+                angle2.setPosition(1600, 60);
+                angle2.setSize(5, 5);
+                stage.addActor(angle2);
+            }
+        }
+        //if key pressed is D increase angle
+        if(Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+            if(player1Turn==true){
+                tank1angle += 1;
+                tank1angleString = Integer.toString((int)tank1angle);
+                //remove button from stage
+                stage.getActors().removeValue(angle1, true);
+                //create new button with new angle
+                angle1 = new TextButton(tank1angleString, mySkin);
+                angle1.setPosition(140, 60);
+                angle1.setSize(5, 5);
+                stage.addActor(angle1);
+            }
+            else{
+                tank2angle += 1;
+                tank2angleString = Integer.toString((int)tank2angle);
+                //remove button from stage
+                stage.getActors().removeValue(angle2, true);
+                //create new button with new angle
+                angle2 = new TextButton(tank2angleString, mySkin);
+                angle2.setPosition(1600, 60);
+                angle2.setSize(5, 5);
+                stage.addActor(angle2);
+            }
+        }
+
 
         //if escape is pressed, go to the pause menu
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
@@ -400,8 +557,15 @@ public class InGameScene implements Screen {
 
                 //make the bullet fall under gravity
                 bulletMine1.getBody().setGravityScale(1);
-                //shoot bullet1 in direction of tank1's turret with 20F force
-                bulletMine1.getBody().applyLinearImpulse(new Vector2(0, 5), bulletMine1.getBody().getWorldCenter(), true);
+                //shoot bullet1 in direction of tank1's turret using velocity
+                //calculate cos and sine of angle
+                float cos = (float) Math.cos(Math.toRadians(tank1angle));
+                float sin = (float) Math.sin(Math.toRadians(tank1angle));
+                float vx = tank1power * cos;
+                float vy = tank1power * sin;
+                bulletMine1.getBody().setLinearVelocity(vx, vy);
+
+                //bulletMine1.getBody().setLinearVelocity(tank1power, 5F);
 
                 player1Turn = false;
                 tank2.resetFuel();
@@ -422,9 +586,15 @@ public class InGameScene implements Screen {
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //change bullet2's position to corner of tank2's turret
-                bulletMine2.getBody().setTransform(tank2.getBody().getPosition().x + 1, tank2.getBody().getPosition().y + 1, 0);
-                //shoot bullet2 in the direction of tank2's turret along a parabola
-                bulletMine2.getBody().applyLinearImpulse(-20F, 0F, bulletMine2.getBody().getPosition().x, bulletMine2.getBody().getPosition().y, false);
+                bulletMine2.getBody().setTransform(tank2.getBody().getPosition().x - 1, tank2.getBody().getPosition().y + 1, 0);
+                //shoot bullet2 in the direction of tank2's turret using velocity
+                // calculate cos and sine of angle
+                float cos = (float) Math.cos(Math.toRadians(tank2angle));
+                float sin = (float) Math.sin(Math.toRadians(tank2angle));
+                // calculate velocity
+                float vx = tank2power * cos;
+                float vy = tank2power * sin;
+                bulletMine2.getBody().setLinearVelocity(-vx, vy);
                 player1Turn = true;
                 tank1.resetFuel();
             }
@@ -450,6 +620,8 @@ public class InGameScene implements Screen {
 
         if (bulletMine1.collideWithTank(tank2) == true){
 //            bulletMine1.getBody().setTransform(-450, 0, 0);
+            tank2.getBody().applyForceToCenter(tank1power*100, 0, true);
+
             world.destroyBody(bulletMine1.getBody());
             bulletMine1 = new BulletMine(world, -400, -400, 10, 10);
 
@@ -468,6 +640,8 @@ public class InGameScene implements Screen {
 
         //if bullet is close to tank2, destroy it
         if (bulletMine2.collideWithTank(tank1) == true){
+            //apply force on tank back depending on power
+            tank1.getBody().applyForceToCenter(-tank2power*100, 0, true);
             world.destroyBody(bulletMine2.getBody());
             bulletMine2 = new BulletMine(world, -400, -400, 10, 10);
 
