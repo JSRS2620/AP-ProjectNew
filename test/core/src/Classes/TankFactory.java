@@ -31,4 +31,16 @@ public class TankFactory {
             return new Spectre_Tank(world, x, y, width, height, tankType, health, fuel);
         }
     }
+
+    public Tank withoutWorld(int x, int y, int width, int height,int health, int fuel, String tankType){
+        if(tankType.equals("Abrams")){
+            return new Abram_Tank(x, y, width, height, tankType, health, fuel);
+        }
+        else if(tankType.equals("Coalition")){
+            return new Coalition_Tank(x, y, width, height, tankType, health, fuel);
+        }
+        else{
+            return new Spectre_Tank(x, y, width, height, tankType, health, fuel);
+        }
+    }
 }

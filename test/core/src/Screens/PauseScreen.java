@@ -5,6 +5,7 @@ import Classes.Tank;
 import Classes.TankTextureFactory;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -115,6 +116,7 @@ public class PauseScreen implements Screen {
                 @Override
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 //                outputLabel.setText("Press a Button");
+                    dispose();
                     game.setScreen(new InGameScene(game, tank1, tank2, healthBar, healthBar2, fuelBar, fuelBar2));
 
                 }
@@ -139,8 +141,8 @@ public class PauseScreen implements Screen {
             saveButton.addListener(new InputListener(){
                 @Override
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-//                    game.setScreen(new InGameScene(game, tank1, tank2, healthBar, healthBar2, fuelBar, fuelBar2));
+                    save();
+                    game.setScreen(new MainMenuScreen(game));
 
                 }
                 @Override
@@ -164,6 +166,7 @@ public class PauseScreen implements Screen {
             quitButton.addListener(new InputListener(){
                 @Override
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    dispose();
                     game.setScreen(new MainMenuScreen(game));
 
                 }
@@ -236,4 +239,9 @@ public class PauseScreen implements Screen {
             stage.dispose();
 
         }
+        public void save(){
+            FileHandle file = Gdx.files.local("core/src/SaveStates/S1.txt");
+            file.writeString(tank1.getTankType() + " " + tank1.getHealth() + " " + tank1.getFuel() + " " + tank1.getRealmodeX()+ " " + tank1.getPosition().getY() + "\n", false);
+            file.writeString(tank2.getTankType() + " " + tank2.getHealth() + " " + tank2.getFuel() + " " + tank2.getRealmodeX() + " " + tank2.getPosition().getY() + "\n", true);
+    }
 }

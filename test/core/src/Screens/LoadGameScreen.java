@@ -1,9 +1,13 @@
 package Screens;
 //package com.mygdx.game;
 
+import Classes.HealthBarFactory;
+import Classes.Tank;
+import Classes.TankFactory;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,6 +20,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.MyGdxGame;
 
 
 public class LoadGameScreen implements Screen {
@@ -103,7 +108,7 @@ public class LoadGameScreen implements Screen {
         game1Button.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-
+                load();
 
             }
             @Override
@@ -335,5 +340,41 @@ public class LoadGameScreen implements Screen {
 
         stage.dispose();
 
+    }
+
+    public void load(){
+        FileHandle file = Gdx.files.local("core/src/SaveStates/S1.txt");
+        //it has two lines which contains tank name, health, fuel, x coordinates
+        String[] lines = file.readString().split("\n");
+        String[] tankInfo = lines[0].split(" ");
+        String[] tankInfo2 = lines[1].split(" ");
+
+
+        //tank1
+        String tankName = tankInfo[0];
+        int health = Integer.parseInt(tankInfo[1]);
+        int fuel = Integer.parseInt(tankInfo[2]);
+        float x = Float.parseFloat(tankInfo[3]);
+        float y = Float.parseFloat(tankInfo[4]);
+
+        //tank2
+        String tankName2 = tankInfo2[0];
+        int health2 = Integer.parseInt(tankInfo2[1]);
+        int fuel2 = Integer.parseInt(tankInfo2[2]);
+        float x2 = Float.parseFloat(tankInfo2[3]);
+        float y2 = Float.parseFloat(tankInfo2[4]);
+
+        TankFactory tankFactory = new TankFactory();
+        Tank tank = tankFactory.withoutWorld((int)x, -100, 54,28, health, fuel,tankName);
+        Tank tank2 = tankFactory.withoutWorld((int)x2, -100, 54,28, health2, fuel2,tankName2);
+
+        HealthBarFactory healthBarFactory = new HealthBarFactory();
+        Texture healthBarTexture = healthBarFactory.generateHealthBarTexture(tank,tankName,health);
+        Texture healthBarTexture2 = healthBarFactory.generateHealthBarTexture(tank2,tankName2,health2);
+
+        Texture fuelBarTexture = new Texture("InGameStuffOther/FuelBar1.png");
+        Texture fuelBarTexture2 = new Texture("InGameStuffOther/FuelBar1.png");
+
+        game.setScreen(new InGameScene((MyGdxGame) game, tank, tank2, healthBarTexture, healthBarTexture2, fuelBarTexture, fuelBarTexture2));
     }
 }

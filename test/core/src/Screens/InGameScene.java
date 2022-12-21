@@ -104,6 +104,9 @@ public class InGameScene implements Screen {
         TankFactory tankFactory = new TankFactory();
         tank1 = tankFactory.generateTank(world,-400,-100,54,28,typetank1); tank1.resetFuel();
         tank2 = tankFactory.generateTank(world,0,-100,54,28,typetank2); tank2.resetFuel();
+        //add linear damping to the tanks
+//        tank1.getBody().setLinearDamping(0.5f);
+//        tank2.getBody().setLinearDamping(0.5f);
         //player2 = createBox(400,100,54,28,false);
 
         bulletMine1 = new BulletMine(world,-400,-400,10,10);
@@ -254,14 +257,18 @@ public class InGameScene implements Screen {
 
 
         TankFactory tankFactory = new TankFactory();
-        //tank1 = tankFactory.generateTankResume(world,(int) tankresume1.getBody().getPosition().x,(int) tankresume1.getBody().getPosition().y,60,60,tankresume1.getTankType(),tankresume1.getHealth(),tankresume1.getFuel());
-       // tank2 = tankFactory.generateTankResume(world,(int) tankresume2.getBody().getPosition().x,(int) tankresume2.getBody().getPosition().y,60,60,tankresume2.getTankType(),tankresume2.getHealth(),tankresume2.getFuel());
+//        tank1 = tankFactory.generateTankResume(world,(int) tankresume1.getBody().getPosition().x,(int) tankresume1.getBody().getPosition().y,60,60,tankresume1.getTankType(),tankresume1.getHealth(),tankresume1.getFuel());
+//        tank2 = tankFactory.generateTankResume(world,(int) tankresume2.getBody().getPosition().x,(int) tankresume2.getBody().getPosition().y,60,60,tankresume2.getTankType(),tankresume2.getHealth(),tankresume2.getFuel());
+
+
+        tank1 = tankFactory.generateTankResume(world,(int) tankresume1.getRealmodeX(),-100,54,28,tankresume1.getTankType(),tankresume1.getHealth(),tankresume1.getFuel());
+        tank2 = tankFactory.generateTankResume(world,(int) tankresume2.getRealmodeX(),-100,54,28,tankresume2.getTankType(),tankresume2.getHealth(),tankresume2.getFuel());
         //tank1.resetFuel(); //reset fuel
         //tank2.resetFuel(); //reset fuel
         String typetank1 = tankresume1.getTankType();
         String typetank2 = tankresume2.getTankType();
-        tank1 = tankFactory.generateTank(world, -400, -100, 54, 28, typetank1);
-        tank2 = tankFactory.generateTank(world, 0, -100, 54, 28, typetank2);
+//        tank1 = tankFactory.generateTank(world, -400, -100, 54, 28, typetank1);
+//        tank2 = tankFactory.generateTank(world, 0, -100, 54, 28, typetank2);
         //player2 = createBox(400,100,54,28,false);
 
         bulletMine1 = new BulletMine(world,-400,-400,10,10);
@@ -420,7 +427,10 @@ public class InGameScene implements Screen {
         //get position of tank2 in screen coordinates
         Vector3 tank2Pos = camera.project(new Vector3(tank2.getBody().getPosition().x-0.9F, tank2.getBody().getPosition().y-0.9F, 0));
         tank1.getPosition().setX(tank1Pos.x); tank1.getPosition().setY(tank1Pos.y);
+        tank1.setRealmodeX(tank1.getBody().getPosition().x*PPM);
+
         tank2.getPosition().setX(tank2Pos.x); tank2.getPosition().setY(tank2Pos.y);
+        tank2.setRealmodeX(tank2.getBody().getPosition().x*PPM);
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             if(player1Turn==true){
@@ -535,7 +545,7 @@ public class InGameScene implements Screen {
 
 
         //if escape is pressed, go to the pause menu
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && player1Turn==true) {
             game.setScreen(new PauseScreen(game,tank1,tank2,healthBarTexture1,healthBarTexture2,fuelBarTexture1,fuelBarTexture2));
         }
 
@@ -549,7 +559,7 @@ public class InGameScene implements Screen {
                 horizontalForce += 1;
                 tank1.reduceFuelBy1();
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && tank1power > 0) {
                 //change bullet1's position to corner of tank1's turret
                 bulletMine1.getBody().setTransform(tank1.getBody().getPosition().x + 1, tank1.getBody().getPosition().y + 1, 0);
                 //shoot bullet1 in direction of tank1's turret
@@ -584,7 +594,7 @@ public class InGameScene implements Screen {
                 horizontalForce += 1;
                 tank2.reduceFuelBy1();
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && tank2power > 0) {
                 //change bullet2's position to corner of tank2's turret
                 bulletMine2.getBody().setTransform(tank2.getBody().getPosition().x - 1, tank2.getBody().getPosition().y + 1, 0);
                 //shoot bullet2 in the direction of tank2's turret using velocity

@@ -40,6 +40,20 @@ public class Abram_Tank extends Tank {
 
     }
 
+    public Abram_Tank(int x, int y, int width, int height, String tankType,int health, int fuel) {
+        super(x, y, width, height, tankType, health, fuel);
+        this.health = health;
+        this.fuel = fuel;
+
+        this.speed = 10;
+        this.isAlive = true;
+        this.maxFuel = 200;
+        this.maxPowerLaunch = 100;
+        this.isSurpriseBoxActive = false;
+
+
+    }
+
 
 
     public int getMaxPowerLaunch() {

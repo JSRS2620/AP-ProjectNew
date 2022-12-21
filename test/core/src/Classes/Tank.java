@@ -12,6 +12,8 @@ public class Tank {
     protected int fuel;
     protected int health;
     protected Position position;
+    protected Position realmodePosition;
+    protected float realmodeX;
     protected int speed;
     protected BulletMine bullet;
     protected boolean isAlive;
@@ -25,7 +27,7 @@ public class Tank {
 
     public Tank(Body body) {
         this.body = body;
-        this.health = 10000;
+        this.health = 10;
         this.speed = 10;
         this.maxFuel = 200;
         this.fuel = maxFuel;
@@ -118,5 +120,21 @@ public class Tank {
     }
 
     public void setWorld(World world) {
+    }
+
+    public float getRealmodeX() {
+        return realmodeX;
+    }
+
+    public void setRealmodeX(float realmodeX) {
+        this.realmodeX = realmodeX;
+    }
+
+    public Tank(int x, int y, int width, int height, String tankType, int health, int fuel) {
+        this.position = new Position(x, y);
+        this.tankType = tankType;
+        this.health = health;
+        this.fuel = fuel;
+        this.realmodeX = x;
     }
 }
