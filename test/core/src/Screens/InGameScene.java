@@ -103,7 +103,7 @@ public class InGameScene implements Screen {
         //bullet1 = createBox(-400,-400,10,10,false);
         TankFactory tankFactory = new TankFactory();
         tank1 = tankFactory.generateTank(world,-400,-100,54,28,typetank1); tank1.resetFuel();
-        tank2 = tankFactory.generateTank(world,0,-100,54,28,typetank2); tank2.resetFuel();
+        tank2 = tankFactory.generateTank(world,400,-100,54,28,typetank2); tank2.resetFuel();
         //add linear damping to the tanks
 //        tank1.getBody().setLinearDamping(0.5f);
 //        tank2.getBody().setLinearDamping(0.5f);
@@ -176,7 +176,7 @@ public class InGameScene implements Screen {
         healthBarImage1.setSize(400, 60);
         healthBarImage1.setPosition(40, 850);
         stage.addActor(healthBarImage1);
-        fuelBarTexture1 = new Texture("InGameStuffOther/f2.png");
+        fuelBarTexture1 = new Texture("InGameStuffOther/f1.png");
         fuelBarImage1 = new Image(fuelBarTexture1);
         fuelBarImage1.setSize(200, 50);
         fuelBarImage1.setPosition(40, 750);
@@ -187,7 +187,7 @@ public class InGameScene implements Screen {
         healthBarImage2.setSize(400, 60);
         healthBarImage2.setPosition(1350, 850);
         stage.addActor(healthBarImage2);
-        fuelBarTexture2 = new Texture("InGameStuffOther/f2.png");
+        fuelBarTexture2 = new Texture("InGameStuffOther/f1.png");
         fuelBarImage2 = new Image(fuelBarTexture2);
         fuelBarImage2.setSize(200, 50);
         fuelBarImage2.setPosition(1550, 750);
@@ -331,7 +331,7 @@ public class InGameScene implements Screen {
         healthBarImage1.setSize(400, 60);
         healthBarImage1.setPosition(40, 850);
         stage.addActor(healthBarImage1);
-        fuelBarTexture1 = new Texture("InGameStuffOther/f2.png");
+        fuelBarTexture1 = new Texture("InGameStuffOther/f1.png");
         fuelBarImage1 = new Image(fuelBarTexture1);
         fuelBarImage1.setSize(200, 50);
         fuelBarImage1.setPosition(40, 750);
@@ -342,7 +342,7 @@ public class InGameScene implements Screen {
         healthBarImage2.setSize(400, 60);
         healthBarImage2.setPosition(1350, 850);
         stage.addActor(healthBarImage2);
-        fuelBarTexture2 = new Texture("InGameStuffOther/f2.png");
+        fuelBarTexture2 = new Texture("InGameStuffOther/f1.png");
         fuelBarImage2 = new Image(fuelBarTexture2);
         fuelBarImage2.setSize(200, 50);
         fuelBarImage2.setPosition(1550, 750);
@@ -440,7 +440,7 @@ public class InGameScene implements Screen {
                 stage.getActors().removeValue(power1, true);
                 //create new button with new power
                 power1 = new TextButton(tank1powerString, mySkin);
-                power1.setPosition(20, 60);
+                power1.setPosition(60, 60);
                 power1.setSize(5, 5);
                 stage.addActor(power1);
             }
@@ -467,7 +467,7 @@ public class InGameScene implements Screen {
                 stage.getActors().removeValue(power1, true);
                 //create new button with new power
                 power1 = new TextButton(tank1powerString, mySkin);
-                power1.setPosition(20, 60);
+                power1.setPosition(60, 60);
                 power1.setSize(5, 5);
                 stage.addActor(power1);
             }
@@ -498,7 +498,7 @@ public class InGameScene implements Screen {
                 stage.getActors().removeValue(angle1, true);
                 //create new button with new angle
                 angle1 = new TextButton(tank1angleString, mySkin);
-                angle1.setPosition(140, 60);
+                angle1.setPosition(180, 60);
                 angle1.setSize(5, 5);
                 stage.addActor(angle1);
             }
@@ -526,7 +526,7 @@ public class InGameScene implements Screen {
                 stage.getActors().removeValue(angle1, true);
                 //create new button with new angle
                 angle1 = new TextButton(tank1angleString, mySkin);
-                angle1.setPosition(140, 60);
+                angle1.setPosition(180, 60);
                 angle1.setSize(5, 5);
                 stage.addActor(angle1);
             }

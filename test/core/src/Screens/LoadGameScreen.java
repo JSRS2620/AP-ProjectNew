@@ -372,8 +372,8 @@ public class LoadGameScreen implements Screen {
         Texture healthBarTexture = healthBarFactory.generateHealthBarTexture(tank,tankName,health);
         Texture healthBarTexture2 = healthBarFactory.generateHealthBarTexture(tank2,tankName2,health2);
 
-        Texture fuelBarTexture = new Texture("InGameStuffOther/FuelBar1.png");
-        Texture fuelBarTexture2 = new Texture("InGameStuffOther/FuelBar1.png");
+        Texture fuelBarTexture = new Texture("InGameStuffOther/f1.png");
+        Texture fuelBarTexture2 = new Texture("InGameStuffOther/f1.png");
 
         game.setScreen(new InGameScene((MyGdxGame) game, tank, tank2, healthBarTexture, healthBarTexture2, fuelBarTexture, fuelBarTexture2));
     }
