@@ -2,6 +2,7 @@ package Screens;
 //package com.mygdx.game;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -89,83 +90,70 @@ public class LoadGameScreen implements Screen {
 
 
 
-        final Button newgameButton = new TextButton("New Game",mySkin,"small");
+        final Button game1Button = new TextButton("Game 1",mySkin,"small");
         //take input
         Gdx.input.setInputProcessor(stage);
-        float newgamecol_width = Gdx.graphics.getWidth()/6+75;
-        float newgamerow_height = Gdx.graphics.getHeight()/3+200;
-        newgameButton.setSize(newgamecol_width,newgamerow_height/6);
+        float game1col_width = Gdx.graphics.getWidth()/6+75;
+        float game1row_height = Gdx.graphics.getHeight()/3+200;
+        game1Button.setSize(game1col_width,game1row_height/6);
 
-        float newgamex = newgamecol_width+925; //center button in the middle of the screen
-        float newgamey = Gdx.graphics.getHeight()/2 - newgamerow_height/2+250;
-        newgameButton.setPosition(newgamex,newgamey);
-        newgameButton.addListener(new InputListener(){
+        float game1x = game1col_width+925; //center button in the middle of the screen
+        float game1y = Gdx.graphics.getHeight()/2 - game1row_height/2+250;
+        game1Button.setPosition(game1x,game1y);
+        game1Button.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-                game.setScreen(new TankSelectionScreen(game));
+
 
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Pressed Text Button");
-                //change button color to blue
-                newgameButton.setColor(0,0,1,1);
                 return true;
             }
         });
-        stage.addActor(newgameButton);
+        stage.addActor(game1Button);
 
-        final Button loadgameButton = new TextButton("Load Game",mySkin,"small");
-        float loadgamecol_width = Gdx.graphics.getWidth()/6+75;
-        float loadgamerow_height = Gdx.graphics.getHeight()/3+200;
-        loadgameButton.setSize(loadgamecol_width,loadgamerow_height/6);
+        final Button game2Button = new TextButton("Game 2",mySkin,"small");
+        float game2col_width = Gdx.graphics.getWidth()/6+75;
+        float game2row_height = Gdx.graphics.getHeight()/3+200;
+        game2Button.setSize(game2col_width,game2row_height/6);
 
-        float loadgamex = loadgamecol_width+925; //center button in the middle of the screen
-        float loadgamey = Gdx.graphics.getHeight()/2 - loadgamerow_height/2+50;
-        loadgameButton.setPosition(loadgamex,loadgamey);
-        loadgameButton.addListener(new InputListener(){
+        float game2x = game2col_width+925; //center button in the middle of the screen
+        float game2y = Gdx.graphics.getHeight()/2 - game2row_height/2+50;
+        game2Button.setPosition(game2x,game2y);
+        game2Button.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new TankSelectionScreen(game));
+
 
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 
-                loadgameButton.setColor(0,0,1,1);
                 return true;
             }
         });
-        stage.addActor(loadgameButton);
+        stage.addActor(game2Button);
 
-        final Button quitgameButton = new TextButton("Quit Game",mySkin,"small");
-        float quitgamecol_width = Gdx.graphics.getWidth()/6+75;
-        float quitgamerow_height = Gdx.graphics.getHeight()/3+200;
-        quitgameButton.setSize(quitgamecol_width,quitgamerow_height/6);
+        final Button game3Button = new TextButton("Back",mySkin,"small");
+        float game3col_width = Gdx.graphics.getWidth()/6+75;
+        float game3row_height = Gdx.graphics.getHeight()/3+200;
+        game3Button.setSize(game3col_width,game3row_height/6);
 
-        float quitgamex = quitgamecol_width+925; //center button in the middle of the screen
-        float quitgamey = Gdx.graphics.getHeight()/2 - quitgamerow_height/2-150;
-        quitgameButton.setPosition(quitgamex,quitgamey);
-        quitgameButton.addListener(new InputListener(){
+        float game3x = game3col_width+925; //center button in the middle of the screen
+        float game3y = Gdx.graphics.getHeight()/2 - game3row_height/2-150;
+        game3Button.setPosition(game3x,game3y);
+        game3Button.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-                Gdx.app.exit();
-
+                game.setScreen(new MainMenuScreen(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Pressed Text Button");
-                //change button color to blue
-                quitgameButton.setColor(0,0,1,1);
                 return true;
             }
         });
-        stage.addActor(quitgameButton);
-
-
-
+        stage.addActor(game3Button);
 
 
 
@@ -234,76 +222,6 @@ public class LoadGameScreen implements Screen {
 
 
     public void create () {
-//        myTexture = new Texture(Gdx.files.internal("NewGameButton1.png"));
-//        myTextureRegion = new TextureRegion(myTexture);
-//        myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
-//        button = new ImageButton(myTexRegionDrawable); //Set the button up
-
-//      a  stage = new Stage(new ScreenViewport()); //Set up a stage for the ui
-////        stage.addActor(button); //Add the button to the stage to perform rendering and take input.
-//        Gdx.input.setInputProcessor(stage);
-//
-//
-
-
-
-
-//
-//
-//        logoImg = new Texture("Tank_Stars_Logo_nobg.png");
-//        logoImage = new Image(logoImg);
-//        logoImage.setPosition(xLogo, yLogo);
-//        logoImage.setSize(200, 200);
-//        stage.addActor(logoImage);
-//
-//        backGroundPurpleImg = new Texture("PurpleBackgrounds/Purplebg1.jpeg");
-//        backgroundPurpleImage = new Image(backGroundPurpleImg);
-//        backgroundPurpleImage.setPosition(xPurpleBackground, yPurpleBackground);
-//        backgroundPurpleImage.setSize(100, 100);
-//        stage.addActor(backgroundPurpleImage);
-//
-//        backgroundImg = new Texture("Backgrounds/M1.jpeg");
-//        backgroundImage = new Image(backgroundImg);
-//        backgroundImage.setPosition(xMaroonBackground, yMaroonBackground);
-//        backgroundImage.setSize(100, 100);
-//        stage.addActor(backgroundImage);
-//
-//        bulletImg = new Texture("Bullets/bullet.png");
-//        bulletImage = new Image(bulletImg);
-//        bulletImage.setPosition(xBullet, yBullet);
-//        bulletImage.setSize(100, 100);
-//        stage.addActor(bulletImage);
-//        mainMenuImg = new Texture("Text/MainMenu.png");
-//        mainMenuImage = new Image(mainMenuImg);
-//        mainMenuImage.setPosition(xMainmenu, yMainmenu);
-//        mainMenuImage.setSize(100, 100);
-//        stage.addActor(mainMenuImage);
-//
-//
-//
-//        newGameButtonImg = new Texture("Buttons/NewGameButton1.png");
-//        newGameButtonImage = new Image(newGameButtonImg);
-//        newGameButtonImage.setPosition(xNewgame, yNewgame);
-//        newGameButtonImage.setSize(100, 100);
-//        stage.addActor(newGameButtonImage);
-//
-//        loadGameButtonImg = new Texture("Buttons/LoadGameButton1.png");
-//        loadGameButtonImage = new Image(loadGameButtonImg);
-//        loadGameButtonImage.setPosition(xLoadgame, yLoadgame);
-//        loadGameButtonImage.setSize(100, 100);
-//        stage.addActor(loadGameButtonImage);
-//
-//        quitGameButtonImg = new Texture("Buttons/QuitGameButton1.png");
-//        quitGameButtonImage = new Image(quitGameButtonImg);
-//        quitGameButtonImage.setPosition(xQuitgame, yQuitgame);
-//        quitGameButtonImage.setSize(100, 100);
-//        stage.addActor(quitGameButtonImage);
-//
-//        sideMenuImg = new Texture("Backgrounds/SideMenu.png");
-//        sideMenuImage = new Image(sideMenuImg);
-//        sideMenuImage.setPosition(xSkygradient, ySkygradient);
-//        sideMenuImage.setSize(100, 100);
-//        stage.addActor(sideMenuImage);
 
         abramSprite = new Sprite(abramImg);
         abramSprite.setSize(340,340);
@@ -368,108 +286,8 @@ public class LoadGameScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-//        stage = new Stage(new ScreenViewport());
-//        Gdx.input.setInputProcessor(stage);
-//        int Help_Guides = 12;
-//        int row_height = Gdx.graphics.getWidth() / 12;
-//        int col_width = Gdx.graphics.getWidth() / 12;
-//
-//        //Skin mySkin = new Skin(Gdx.files.internal("glassy-ui.json"));
-//        Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-//        Label title = new Label("Buttons with Skins",mySkin,"big-black");
-//        title.setSize(Gdx.graphics.getWidth(),row_height*2);
-//        title.setPosition(0,Gdx.graphics.getHeight()-row_height*2);
-//        title.setAlignment(Align.center);
-//        stage.addActor(title);
-//
-//        // Button
-//        Button button1 = new Button(mySkin,"small");
-//        button1.setSize(col_width*4,row_height);
-//        button1.setPosition(col_width,Gdx.graphics.getHeight()-row_height*3);
-//        button1.addListener(new InputListener(){
-//            @Override
-//            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-//            }
-//            @Override
-//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Pressed Button");
-//                return true;
-//            }
-//        });
-//        stage.addActor(button1);
-//
-//        // Text Button
-//        Button button2 = new TextButton("Text Button",mySkin,"small");
-//        button2.setSize(col_width*4,row_height);
-//        button2.setPosition(col_width*7,Gdx.graphics.getHeight()-row_height*3);
-//        button2.addListener(new InputListener(){
-//            @Override
-//            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-//            }
-//            @Override
-//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Pressed Text Button");
-//                return true;
-//            }
-//        });
-//        stage.addActor(button2);
-//
-//        outputLabel = new Label("Press a Button",mySkin,"black");
-//        outputLabel.setSize(Gdx.graphics.getWidth(),row_height);
-//        outputLabel.setPosition(0,row_height);
-//        outputLabel.setAlignment(Align.center);
-//        stage.addActor(outputLabel);
 
-
-        //img = new Texture("badlogic.jpg");
-
-//        Gdx.input.setInputProcessor(new InputAdapter() {
-//            @Override
-//            public boolean keyDown(int keyCode) {
-//                if (keyCode == Input.Keys.SPACE) {
-//                    game.setScreen(new TankSelectionScreen(game));
-//                }
-//                return true;
-//            }
-//        });
-
-
-
-
-        //if (Gdx.input.isTouched())  then change to TankSelectScreen
-        //if (Gdx.input.isTouched())  then change to LoadGameScreen
-
-//        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-//            game.setScreen(new TankSelectionScreen(game));
-//            dispose();
-//        }
-//
-//        SimpleButton newgamebutton = new SimpleButton(newgamebuttonImg, xNewgame, yNewgame, 135, 60) {
-//            //@Override
-//            public void action() {
-//                game.setScreen(new TankSelectionScreen(game));
-//                dispose();
-//            }
-//        };
-//        boolean a = newgamebutton.checkIfClicked(Gdx.input.getX(), Gdx.input.getY());
-//        if(a){
-//            //set screen to TankSelectionScreen
-//            game.setScreen(new TankSelectionScreen(game));
-//            dispose();
-//        }
-
-
-        //stage.act(Gdx.graphics.getDeltaTime());
-        //stage.draw();
-
-//        loadgamebuttonSprite = new Sprite(loadgamebuttonImg);
-//        loadgamebuttonSprite.setPosition(xLoadgame, yLoadgame);
-//        loadgamebuttonSprite.setSize(200, 50);
-
-
-//        Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Storm - AShamaluevMusic.mp3"));
+//        Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Audio/Storm - AShamaluevMusic.mp3"));
 //        menuMusic.setLooping(true);
 //        menuMusic.play();
 //        menuMusic.setVolume(0.3f);
@@ -483,71 +301,10 @@ public class LoadGameScreen implements Screen {
         //ScreenUtils.clear(66F, 28F, 82F, 1);
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //ScreenUtils.clear(0, 0, 0, 1);
         stage.act(delta);
         stage.draw();
-
-        //stage.addActor(new Image(backgroundImg));
-//        batch.begin();
-        //game.batch.draw(backgroundpurpleImg, xPurpleBackground, yPurpleBackground);
-
-//        backgroundPurpleSprite.draw(batch);
-//        backgroundSprite.draw(batch);
-//        sideMenuSprite.draw(batch);
-//        abramSprite.draw(batch);
-//        groundSprite1.draw(batch);
-//        groundSprite2.draw(batch);
-//        groundSprite3.draw(batch);
-//        logoSprite.draw(batch);
-//
-//        bulletSprite.draw(batch);
-//        mainMenuSprite.draw(batch);
-//        newGameButtonSprite.draw(batch);
-//        loadGameButtonSprite.draw(batch);
-//        quitGameButtonSprite.draw(batch);
-
-
-
-
-//        game.batch.draw(backgroundmaroonImg, xMaroonBackground, yMaroonBackground);
-//
-//        game.batch.draw(abramImg, xAbram, yAbram);
-//        game.batch.draw(groundImg1, xGround1, yGround1);
-//        game.batch.draw(groundImg2, xGround2, yGround2);
-//        game.batch.draw(getGroundImg3, xGround3, yGround3);
-//        game.batch.draw(logoImg, xLogo, yLogo);
-//
-//        game.batch.draw(skygradientImg, xSkygradient, ySkygradient);
-//        game.batch.draw(mainmenuImg, xMainmenu, yMainmenu);
-//        game.batch.draw(newgamebuttonImg, xNewgame, yNewgame);
-//        game.batch.draw(loadgamebuttonImg, xLoadgame, yLoadgame);
-//        game.batch.draw(quitgamebuttonImg, xQuitgame, yQuitgame);
-//        game.batch.draw(bulletImg, xBullet, yBullet);
-
-
-//        //make the bullet disappear after 1 second
-//        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-//            if(xBullet==325){
-//                flag = 1;
-//                long id = bulletSound.play(0.3f);
-//                bulletSound.setPitch(id, 1);
-//                bulletSound.setLooping(id, false);
-//            }
-//        }
-//
-//        if(flag==1) {
-//            xBullet += 4;
-//        }
-//        if (xBullet > 730) {
-//            xBullet = 325;
-//            flag = 0;
-//        }
-//
-//        bulletSprite.setPosition(xBullet,yBullet);
-//
-//        batch.end();
 
 
 

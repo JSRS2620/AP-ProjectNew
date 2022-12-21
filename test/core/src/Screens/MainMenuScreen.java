@@ -2,6 +2,7 @@ package Screens;
 //package com.mygdx.game;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -127,7 +128,7 @@ public class MainMenuScreen implements Screen {
         loadgameButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new TankSelectionScreen(game));
+                game.setScreen(new LoadGameScreen(game));
 
             }
             @Override
@@ -234,76 +235,7 @@ public class MainMenuScreen implements Screen {
 
 
     public void create () {
-//        myTexture = new Texture(Gdx.files.internal("NewGameButton1.png"));
-//        myTextureRegion = new TextureRegion(myTexture);
-//        myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
-//        button = new ImageButton(myTexRegionDrawable); //Set the button up
 
-//      a  stage = new Stage(new ScreenViewport()); //Set up a stage for the ui
-////        stage.addActor(button); //Add the button to the stage to perform rendering and take input.
-//        Gdx.input.setInputProcessor(stage);
-//
-//
-
-
-
-
-//
-//
-//        logoImg = new Texture("Tank_Stars_Logo_nobg.png");
-//        logoImage = new Image(logoImg);
-//        logoImage.setPosition(xLogo, yLogo);
-//        logoImage.setSize(200, 200);
-//        stage.addActor(logoImage);
-//
-//        backGroundPurpleImg = new Texture("PurpleBackgrounds/Purplebg1.jpeg");
-//        backgroundPurpleImage = new Image(backGroundPurpleImg);
-//        backgroundPurpleImage.setPosition(xPurpleBackground, yPurpleBackground);
-//        backgroundPurpleImage.setSize(100, 100);
-//        stage.addActor(backgroundPurpleImage);
-//
-//        backgroundImg = new Texture("Backgrounds/M1.jpeg");
-//        backgroundImage = new Image(backgroundImg);
-//        backgroundImage.setPosition(xMaroonBackground, yMaroonBackground);
-//        backgroundImage.setSize(100, 100);
-//        stage.addActor(backgroundImage);
-//
-//        bulletImg = new Texture("Bullets/bullet.png");
-//        bulletImage = new Image(bulletImg);
-//        bulletImage.setPosition(xBullet, yBullet);
-//        bulletImage.setSize(100, 100);
-//        stage.addActor(bulletImage);
-//        mainMenuImg = new Texture("Text/MainMenu.png");
-//        mainMenuImage = new Image(mainMenuImg);
-//        mainMenuImage.setPosition(xMainmenu, yMainmenu);
-//        mainMenuImage.setSize(100, 100);
-//        stage.addActor(mainMenuImage);
-//
-//
-//
-//        newGameButtonImg = new Texture("Buttons/NewGameButton1.png");
-//        newGameButtonImage = new Image(newGameButtonImg);
-//        newGameButtonImage.setPosition(xNewgame, yNewgame);
-//        newGameButtonImage.setSize(100, 100);
-//        stage.addActor(newGameButtonImage);
-//
-//        loadGameButtonImg = new Texture("Buttons/LoadGameButton1.png");
-//        loadGameButtonImage = new Image(loadGameButtonImg);
-//        loadGameButtonImage.setPosition(xLoadgame, yLoadgame);
-//        loadGameButtonImage.setSize(100, 100);
-//        stage.addActor(loadGameButtonImage);
-//
-//        quitGameButtonImg = new Texture("Buttons/QuitGameButton1.png");
-//        quitGameButtonImage = new Image(quitGameButtonImg);
-//        quitGameButtonImage.setPosition(xQuitgame, yQuitgame);
-//        quitGameButtonImage.setSize(100, 100);
-//        stage.addActor(quitGameButtonImage);
-//
-//        sideMenuImg = new Texture("Backgrounds/SideMenu.png");
-//        sideMenuImage = new Image(sideMenuImg);
-//        sideMenuImage.setPosition(xSkygradient, ySkygradient);
-//        sideMenuImage.setSize(100, 100);
-//        stage.addActor(sideMenuImage);
 
         abramSprite = new Sprite(abramImg);
         abramSprite.setSize(340,340);
@@ -368,108 +300,8 @@ public class MainMenuScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-//        stage = new Stage(new ScreenViewport());
-//        Gdx.input.setInputProcessor(stage);
-//        int Help_Guides = 12;
-//        int row_height = Gdx.graphics.getWidth() / 12;
-//        int col_width = Gdx.graphics.getWidth() / 12;
-//
-//        //Skin mySkin = new Skin(Gdx.files.internal("glassy-ui.json"));
-//        Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-//        Label title = new Label("Buttons with Skins",mySkin,"big-black");
-//        title.setSize(Gdx.graphics.getWidth(),row_height*2);
-//        title.setPosition(0,Gdx.graphics.getHeight()-row_height*2);
-//        title.setAlignment(Align.center);
-//        stage.addActor(title);
-//
-//        // Button
-//        Button button1 = new Button(mySkin,"small");
-//        button1.setSize(col_width*4,row_height);
-//        button1.setPosition(col_width,Gdx.graphics.getHeight()-row_height*3);
-//        button1.addListener(new InputListener(){
-//            @Override
-//            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-//            }
-//            @Override
-//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Pressed Button");
-//                return true;
-//            }
-//        });
-//        stage.addActor(button1);
-//
-//        // Text Button
-//        Button button2 = new TextButton("Text Button",mySkin,"small");
-//        button2.setSize(col_width*4,row_height);
-//        button2.setPosition(col_width*7,Gdx.graphics.getHeight()-row_height*3);
-//        button2.addListener(new InputListener(){
-//            @Override
-//            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Press a Button");
-//            }
-//            @Override
-//            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-//                outputLabel.setText("Pressed Text Button");
-//                return true;
-//            }
-//        });
-//        stage.addActor(button2);
-//
-//        outputLabel = new Label("Press a Button",mySkin,"black");
-//        outputLabel.setSize(Gdx.graphics.getWidth(),row_height);
-//        outputLabel.setPosition(0,row_height);
-//        outputLabel.setAlignment(Align.center);
-//        stage.addActor(outputLabel);
 
-
-        //img = new Texture("badlogic.jpg");
-
-//        Gdx.input.setInputProcessor(new InputAdapter() {
-//            @Override
-//            public boolean keyDown(int keyCode) {
-//                if (keyCode == Input.Keys.SPACE) {
-//                    game.setScreen(new TankSelectionScreen(game));
-//                }
-//                return true;
-//            }
-//        });
-
-
-
-
-        //if (Gdx.input.isTouched())  then change to TankSelectScreen
-        //if (Gdx.input.isTouched())  then change to LoadGameScreen
-
-//        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-//            game.setScreen(new TankSelectionScreen(game));
-//            dispose();
-//        }
-//
-//        SimpleButton newgamebutton = new SimpleButton(newgamebuttonImg, xNewgame, yNewgame, 135, 60) {
-//            //@Override
-//            public void action() {
-//                game.setScreen(new TankSelectionScreen(game));
-//                dispose();
-//            }
-//        };
-//        boolean a = newgamebutton.checkIfClicked(Gdx.input.getX(), Gdx.input.getY());
-//        if(a){
-//            //set screen to TankSelectionScreen
-//            game.setScreen(new TankSelectionScreen(game));
-//            dispose();
-//        }
-
-
-        //stage.act(Gdx.graphics.getDeltaTime());
-        //stage.draw();
-
-//        loadgamebuttonSprite = new Sprite(loadgamebuttonImg);
-//        loadgamebuttonSprite.setPosition(xLoadgame, yLoadgame);
-//        loadgamebuttonSprite.setSize(200, 50);
-
-
-//        Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Storm - AShamaluevMusic.mp3"));
+//        Music menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Audio/Storm - AShamaluevMusic.mp3"));
 //        menuMusic.setLooping(true);
 //        menuMusic.play();
 //        menuMusic.setVolume(0.3f);
