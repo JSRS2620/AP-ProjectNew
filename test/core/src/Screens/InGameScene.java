@@ -49,7 +49,7 @@ public class InGameScene implements Screen {
     public InGameScene(MyGdxGame game, String typetank1, String typetank2) {
         this.game = game;
         //world and debugRenderer
-        world = new World(new Vector2(0, -9.81f), false);
+        world = new World(new Vector2(0, -98.1f), false);
         debugRenderer = new Box2DDebugRenderer();
         this.world.setContactListener(new MyContactListener());
         stage = new Stage(new ScreenViewport());
@@ -273,6 +273,7 @@ public class InGameScene implements Screen {
         groundImage2.setPosition(900, 0);
         stage.addActor(groundImage2);
 
+
         healthBarImage1 = new Image(healthBar1);
         healthBarImage1.setSize(400, 60);
         healthBarImage1.setPosition(40, 850);
@@ -283,7 +284,8 @@ public class InGameScene implements Screen {
         fuelBarImage1.setPosition(40, 750);
         stage.addActor(fuelBarImage1);
 
-        healthBarImage2 = new Image(healthBarTexture2);
+
+        healthBarImage2 = new Image(healthBar2);
         healthBarImage2.setSize(400, 60);
         healthBarImage2.setPosition(1350, 850);
         stage.addActor(healthBarImage2);
@@ -393,13 +395,13 @@ public class InGameScene implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //change bullet1's position to corner of tank1's turret
                 bulletMine1.getBody().setTransform(tank1.getBody().getPosition().x + 1, tank1.getBody().getPosition().y + 1, 0);
-                //shoot bullet1 in direction of tank1's turret using velocity
-                bulletMine1.getBody().setLinearVelocity(10,10);
+                //shoot bullet1 in direction of tank1's turret
+                bulletMine1.getBody().applyLinearImpulse(20F, 5F, bulletMine1.getBody().getPosition().x, bulletMine1.getBody().getPosition().y, true);
 
                 //make the bullet fall under gravity
-//                bulletMine1.getBody().setGravityScale(1);
+                bulletMine1.getBody().setGravityScale(1);
                 //shoot bullet1 in direction of tank1's turret with 20F force
-//                bulletMine1.getBody().applyLinearImpulse(new Vector2(0, 5), bulletMine1.getBody().getWorldCenter(), true);
+                bulletMine1.getBody().applyLinearImpulse(new Vector2(0, 5), bulletMine1.getBody().getWorldCenter(), true);
 
                 player1Turn = false;
                 tank2.resetFuel();
