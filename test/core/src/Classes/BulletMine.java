@@ -16,7 +16,7 @@ public class BulletMine {
 
     public BulletMine(World world, int x, int y, int width, int height) {
         createBoxBody(world, x, y, width, height);
-        body.setLinearDamping(20f);
+        body.setLinearDamping(0f);
     }
     //getters and setters
 
@@ -26,7 +26,7 @@ public class BulletMine {
         bodyDef.fixedRotation = true;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
-        body.setLinearDamping(20f);
+        body.setLinearDamping(0f);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width/2/PPM, height/2/PPM);

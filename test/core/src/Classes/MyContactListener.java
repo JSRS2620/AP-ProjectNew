@@ -11,13 +11,7 @@ public class MyContactListener implements ContactListener {
         if(fa==null || fb==null) return;
         if(fa.getUserData()==null || fb.getUserData()==null) return;
 
-<<<<<<< HEAD
         if(fa.getUserData() instanceof Tank && fb.getUserData() instanceof BulletMine) {
-=======
-        if(fa.getUserData() instanceof Tank && fb.getUserData() instanceof BulletMine || fa.getUserData() instanceof BulletMine && fb.getUserData() instanceof Tank){
-            //remove bullet
-//            ((BulletMine) fb.getUserData()).setToDestroy();
->>>>>>> ec9b2f24af4094bc0b425409247325c0d554e1c5
 
         }
 

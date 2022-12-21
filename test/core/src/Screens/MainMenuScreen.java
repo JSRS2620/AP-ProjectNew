@@ -88,6 +88,7 @@ public class MainMenuScreen implements Screen {
 
 
 
+
         final Button newgameButton = new TextButton("New Game",mySkin,"small");
         //take input
         Gdx.input.setInputProcessor(stage);
@@ -207,7 +208,11 @@ public class MainMenuScreen implements Screen {
         stage.addActor(mainMenuImage);
 
 
-
+        bulletImg = new Texture("Bullets/bullet.png");
+        bulletImage = new Image(bulletImg);
+        bulletImage.setPosition(xBullet, yBullet);
+        bulletImage.setSize(20, 20);
+        stage.addActor(bulletImage);
 
 
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -44,11 +45,11 @@ public class InGameScene implements Screen {
 
     private boolean player1Turn = true;
 
-
+    //New Game
     public InGameScene(MyGdxGame game, String typetank1, String typetank2) {
         this.game = game;
         //world and debugRenderer
-        world = new World(new Vector2(0, -98.1f), false);
+        world = new World(new Vector2(0, -9.81f), false);
         debugRenderer = new Box2DDebugRenderer();
         this.world.setContactListener(new MyContactListener());
         stage = new Stage(new ScreenViewport());
@@ -180,6 +181,128 @@ public class InGameScene implements Screen {
 
 
     }
+    //Resume Game
+    public InGameScene(MyGdxGame game, Tank tank1, Tank tank2, Texture healthBar1, Texture healthBar2, Texture fuelBar1, Texture fuelBar2) {
+        this.game = game;
+        //world and debugRenderer
+        world = new World(new Vector2(0, -98.1f), false);
+        debugRenderer = new Box2DDebugRenderer();
+        this.world.setContactListener(new MyContactListener());
+        stage = new Stage(new ScreenViewport());
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+
+
+        //camera
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false,  w/SCALE, h/SCALE);
+
+
+
+        TankFactory tankFactory = new TankFactory();
+        this.tank1 = tank1;
+        this.tank2 = tank2;
+        this.tank1.setWorld(world);
+        this.tank2.setWorld(world);
+        tank1.resetFuel(); //reset fuel
+        tank2.resetFuel(); //reset fuel
+        String typetank1 = tank1.getTankType();
+        String typetank2 = tank2.getTankType();
+        //player2 = createBox(400,100,54,28,false);
+
+        bulletMine1 = new BulletMine(world,-400,-400,10,10);
+        bulletMine2 = new BulletMine(world,-400,-400,10,10);
+
+
+
+        //GroundObject groundObject = GroundObject.getInstance(world,0,-202,1280,102, true);
+
+        //create ground
+        ground = createBox(0, -202, 1280, 102, true);
+        //add friction to ground
+        ground.getFixtureList().get(0).setFriction(0.5f);
+        //create left wall and right wall
+        leftWall = createBox(-470, 0, 32, 720, true);
+        rightWall = createBox(470, 0, 32, 720, true);
+
+
+        batch = new SpriteBatch();
+
+        //depending on the type of tank and bullet, the texture is loaded
+        TankTextureFactory tankTextureFactory = new TankTextureFactory();
+        tank1Texture = tankTextureFactory.generateTankTexture(typetank1);
+        tank2Texture = tankTextureFactory.generateTankTexture2(typetank2);
+        BulletTextureFactory bulletTextureFactory = new BulletTextureFactory();
+        bullet1Texture = bulletTextureFactory.generateBulletTexture(typetank1);
+        bullet2Texture = bulletTextureFactory.generateBulletTexture2(typetank2);
+
+
+        tank1Texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        tank2Texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        tank1Image = new Image(tank1Texture);
+        tank2Image = new Image(tank2Texture);
+        bullet1Image = new Image(bullet1Texture);
+        bullet2Image = new Image(bullet2Texture);
+
+        tank1Image.setSize(60,60);
+        tank2Image.setSize(60,60);
+//        if(typetank1.equals("Spectre")){
+//            tank1Image.setSize(70,50);
+//        }
+//        if(typetank2.equals("Spectre")){
+//            tank2Image.setSize(70,50);
+//        }
+        bullet1Image.setSize(10,10);
+        bullet2Image.setSize(10,10);
+
+        backgroundTexture = new Texture("Backgrounds/NiceForest1.png");
+        backgroundImage = new Image(backgroundTexture);
+        backgroundImage.setSize(4500, 1050);
+        backgroundImage.setPosition(0, 0);
+        stage.addActor(backgroundImage);
+
+        groundTexture1 = new Texture("Ground.jpg");
+        groundImage1 = new Image(groundTexture1);
+        groundImage1.setSize(900, 200);
+        groundImage1.setPosition(0, 0);
+        stage.addActor(groundImage1);
+        groundTexture2 = new Texture("Ground.jpg");
+        groundImage2 = new Image(groundTexture2);
+        groundImage2.setSize(900, 200);
+        groundImage2.setPosition(900, 0);
+        stage.addActor(groundImage2);
+
+        healthBarImage1 = new Image(healthBar1);
+        healthBarImage1.setSize(400, 60);
+        healthBarImage1.setPosition(40, 850);
+        stage.addActor(healthBarImage1);
+        fuelBarTexture1 = new Texture("InGameStuffOther/f2.png");
+        fuelBarImage1 = new Image(fuelBarTexture1);
+        fuelBarImage1.setSize(200, 50);
+        fuelBarImage1.setPosition(40, 750);
+        stage.addActor(fuelBarImage1);
+
+        healthBarImage2 = new Image(healthBarTexture2);
+        healthBarImage2.setSize(400, 60);
+        healthBarImage2.setPosition(1350, 850);
+        stage.addActor(healthBarImage2);
+        fuelBarTexture2 = new Texture("InGameStuffOther/f2.png");
+        fuelBarImage2 = new Image(fuelBarTexture2);
+        fuelBarImage2.setSize(200, 50);
+        fuelBarImage2.setPosition(1550, 750);
+        stage.addActor(fuelBarImage2);
+
+        logoTexture = new Texture("Tank_Stars_Logo_nobg.png");
+        logoImage = new Image(logoTexture);
+        logoImage.setSize(200, 200);
+        logoImage.setPosition(780, 780);
+        stage.addActor(logoImage);
+
+
+
+
+    }
 
     private Body createBody(ChainShape groundShape, int i, int i1, boolean b) {
         BodyDef bodyDef = new BodyDef();
@@ -244,11 +367,18 @@ public class InGameScene implements Screen {
 
     public void inputUpdate(float delta) {
 
-        //update the position of the tank1
-        tank1.getPosition().setX(tank1.getBody().getPosition().x * PPM);
-        tank1.getPosition().setY(tank1.getBody().getPosition().y * PPM);
-        tank2.getPosition().setX(tank2.getBody().getPosition().x * PPM);
-        tank2.getPosition().setY(tank2.getBody().getPosition().y * PPM);
+        //get position of tank1 in screen coordinates
+        Vector3 tank1Pos = camera.project(new Vector3(tank1.getBody().getPosition().x-0.9F, tank1.getBody().getPosition().y-0.9F, 0));
+        //get position of tank2 in screen coordinates
+        Vector3 tank2Pos = camera.project(new Vector3(tank2.getBody().getPosition().x-0.9F, tank2.getBody().getPosition().y-0.9F, 0));
+        tank1.getPosition().setX(tank1Pos.x); tank1.getPosition().setY(tank1Pos.y);
+        tank2.getPosition().setX(tank2Pos.x); tank2.getPosition().setY(tank2Pos.y);
+
+
+        //if escape is pressed, go to the pause menu
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            game.setScreen(new PauseScreen(game,tank1,tank2,healthBarTexture1,healthBarTexture2,fuelBarTexture1,fuelBarTexture2));
+        }
 
         if (player1Turn == true) {
             float horizontalForce = 0F;
@@ -263,13 +393,13 @@ public class InGameScene implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //change bullet1's position to corner of tank1's turret
                 bulletMine1.getBody().setTransform(tank1.getBody().getPosition().x + 1, tank1.getBody().getPosition().y + 1, 0);
-                //shoot bullet1 in direction of tank1's turret
-                bulletMine1.getBody().applyLinearImpulse(20F, 5F, bulletMine1.getBody().getPosition().x, bulletMine1.getBody().getPosition().y, true);
+                //shoot bullet1 in direction of tank1's turret using velocity
+                bulletMine1.getBody().setLinearVelocity(10,10);
 
                 //make the bullet fall under gravity
-                bulletMine1.getBody().setGravityScale(1);
+//                bulletMine1.getBody().setGravityScale(1);
                 //shoot bullet1 in direction of tank1's turret with 20F force
-                bulletMine1.getBody().applyLinearImpulse(new Vector2(0, 5), bulletMine1.getBody().getWorldCenter(), true);
+//                bulletMine1.getBody().applyLinearImpulse(new Vector2(0, 5), bulletMine1.getBody().getWorldCenter(), true);
 
                 player1Turn = false;
                 tank2.resetFuel();

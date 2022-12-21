@@ -116,4 +116,7 @@ public class Tank {
     public void resetFuel(){
         this.fuel = this.maxFuel;
     }
+
+    public void setWorld(World world) {
+    }
 }

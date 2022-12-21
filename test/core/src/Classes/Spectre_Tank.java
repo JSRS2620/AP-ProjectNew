@@ -13,6 +13,7 @@ public class Spectre_Tank extends Tank {
         this.health = 3;
         this.speed = 10;
         this.isAlive = true;
+        this.maxFuel = 200;
         this.maxPowerLaunch = 100;
         this.isSurpriseBoxActive = false;
         this.body.setLinearDamping(20.5f);
