@@ -61,6 +61,8 @@ public class InGameScene implements Screen {
     Button angle2 = new Button(new Button.ButtonStyle());
     Skin mySkin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
+    private FuelBarFactory fuelBarFactory = new FuelBarFactory();
+
     //New Game
     public InGameScene(MyGdxGame game, String typetank1, String typetank2) {
         this.game = game;
@@ -72,24 +74,6 @@ public class InGameScene implements Screen {
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-
-
-
-        //decrease air friction
-//        world.setContactFilter(new ContactFilter() {
-//            @Override
-//            public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
-//                if (fixtureA.getBody().getUserData() != null && fixtureA.getBody().getUserData().equals("bullet")) {
-//                    fixtureA.setFriction(0);
-//                }
-//                if (fixtureB.getBody().getUserData() != null && fixtureB.getBody().getUserData().equals("bullet")) {
-//                    fixtureB.setFriction(0);
-//                }
-//                return true;
-//            }
-//        });
-
-        //add a button to go back to the main menu
 
 
         //camera
@@ -178,7 +162,7 @@ public class InGameScene implements Screen {
         stage.addActor(healthBarImage1);
         fuelBarTexture1 = new Texture("InGameStuffOther/f1.png");
         fuelBarImage1 = new Image(fuelBarTexture1);
-        fuelBarImage1.setSize(200, 50);
+        fuelBarImage1.setSize(300, 50);
         fuelBarImage1.setPosition(40, 750);
         stage.addActor(fuelBarImage1);
 
@@ -189,8 +173,8 @@ public class InGameScene implements Screen {
         stage.addActor(healthBarImage2);
         fuelBarTexture2 = new Texture("InGameStuffOther/f1.png");
         fuelBarImage2 = new Image(fuelBarTexture2);
-        fuelBarImage2.setSize(200, 50);
-        fuelBarImage2.setPosition(1550, 750);
+        fuelBarImage2.setSize(300, 50);
+        fuelBarImage2.setPosition(1450, 750);
         stage.addActor(fuelBarImage2);
 
         logoTexture = new Texture("Tank_Stars_Logo_nobg.png");
@@ -257,6 +241,7 @@ public class InGameScene implements Screen {
 
 
         TankFactory tankFactory = new TankFactory();
+
 //        tank1 = tankFactory.generateTankResume(world,(int) tankresume1.getBody().getPosition().x,(int) tankresume1.getBody().getPosition().y,60,60,tankresume1.getTankType(),tankresume1.getHealth(),tankresume1.getFuel());
 //        tank2 = tankFactory.generateTankResume(world,(int) tankresume2.getBody().getPosition().x,(int) tankresume2.getBody().getPosition().y,60,60,tankresume2.getTankType(),tankresume2.getHealth(),tankresume2.getFuel());
 
@@ -296,6 +281,7 @@ public class InGameScene implements Screen {
         bullet1Texture = bulletTextureFactory.generateBulletTexture(typetank1);
         bullet2Texture = bulletTextureFactory.generateBulletTexture2(typetank2);
 
+        //game.setScreen(new PauseScreen(game,tank1,tank2,healthBarTexture1,healthBarTexture2,fuelBarTexture1,fuelBarTexture2));
 
         tank1Texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         tank2Texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -326,26 +312,26 @@ public class InGameScene implements Screen {
         groundImage2.setPosition(900, 0);
         stage.addActor(groundImage2);
 
-
-        healthBarImage1 = new Image(healthBar1);
+        healthBarTexture1 = healthBar1;
+        healthBarImage1 = new Image(healthBarTexture1);
         healthBarImage1.setSize(400, 60);
         healthBarImage1.setPosition(40, 850);
         stage.addActor(healthBarImage1);
-        fuelBarTexture1 = new Texture("InGameStuffOther/f1.png");
+        fuelBarTexture1 = fuelBar1;
         fuelBarImage1 = new Image(fuelBarTexture1);
-        fuelBarImage1.setSize(200, 50);
+        fuelBarImage1.setSize(300, 50);
         fuelBarImage1.setPosition(40, 750);
         stage.addActor(fuelBarImage1);
 
-
-        healthBarImage2 = new Image(healthBar2);
+        healthBarTexture2 = healthBar2;
+        healthBarImage2 = new Image(healthBarTexture2);
         healthBarImage2.setSize(400, 60);
         healthBarImage2.setPosition(1350, 850);
         stage.addActor(healthBarImage2);
-        fuelBarTexture2 = new Texture("InGameStuffOther/f1.png");
+        fuelBarTexture2 = fuelBar2;
         fuelBarImage2 = new Image(fuelBarTexture2);
-        fuelBarImage2.setSize(200, 50);
-        fuelBarImage2.setPosition(1550, 750);
+        fuelBarImage2.setSize(300, 50);
+        fuelBarImage2.setPosition(1450, 750);
         stage.addActor(fuelBarImage2);
 
         logoTexture = new Texture("Tank_Stars_Logo_nobg.png");
@@ -353,6 +339,16 @@ public class InGameScene implements Screen {
         logoImage.setSize(200, 200);
         logoImage.setPosition(780, 780);
         stage.addActor(logoImage);
+
+//        fuelBarTexture1 = fuelBar1;
+//        fuelBarImage1 = new Image(fuelBarTexture1);
+//        fuelBarImage1.setSize(200, 50);
+//
+//        fuelBarTexture2 = fuelBar2;
+//        fuelBarImage2 = new Image(fuelBarTexture2);
+//        fuelBarImage2.setSize(200, 50);
+
+
 
 
 
@@ -486,7 +482,7 @@ public class InGameScene implements Screen {
                 stage.addActor(power2);
             }
         }
-        //if key pressed is A reduce angle
+        //if key pressed is A, reduce angle
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)) {
             if(player1Turn==true){
                 tank1angle -= 1;
@@ -517,7 +513,7 @@ public class InGameScene implements Screen {
                 stage.addActor(angle2);
             }
         }
-        //if key pressed is D increase angle
+        //if key pressed is D, increase angle
         if(Gdx.input.isKeyJustPressed(Input.Keys.D)) {
             if(player1Turn==true){
                 tank1angle += 1;
@@ -542,6 +538,21 @@ public class InGameScene implements Screen {
                 stage.addActor(angle2);
             }
         }
+        //update fuel image
+        stage.getActors().removeValue(fuelBarImage1, true);
+        fuelBarTexture1 = FuelBarFactory.generateFuelBarTexture(tank1,tank1.getTankType(),tank1.getFuel());
+        fuelBarImage1 = new Image(fuelBarTexture1);
+        fuelBarImage1.setSize(300, 50);
+        fuelBarImage1.setPosition(40, 750);
+        stage.addActor(fuelBarImage1);
+
+        //update fuel image
+        stage.getActors().removeValue(fuelBarImage2, true);
+        fuelBarTexture2 = FuelBarFactory.generateFuelBarTexture(tank2,tank2.getTankType(),tank2.getFuel());
+        fuelBarImage2 = new Image(fuelBarTexture2);
+        fuelBarImage2.setSize(300, 50);
+        fuelBarImage2.setPosition(1450, 750);
+        stage.addActor(fuelBarImage2);
 
 
         //if escape is pressed, go to the pause menu
@@ -551,13 +562,16 @@ public class InGameScene implements Screen {
 
         if (player1Turn == true) {
             float horizontalForce = 0F;
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.getFuel() > 0) {
-                horizontalForce -= 1;
+
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.isTankOnGround(tank1)) {
                 tank1.reduceFuelBy1();
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.getFuel() > 0) {
+
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.getFuel() > 0 && tank1.isTankOnGround(tank1)) {
+                horizontalForce -= 1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.getFuel() > 0 && tank1.isTankOnGround(tank1)) {
                 horizontalForce += 1;
-                tank1.reduceFuelBy1();
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && tank1power > 0) {
                 //change bullet1's position to corner of tank1's turret
@@ -576,7 +590,6 @@ public class InGameScene implements Screen {
                 bulletMine1.getBody().setLinearVelocity(vx, vy);
 
                 //bulletMine1.getBody().setLinearVelocity(tank1power, 5F);
-
                 player1Turn = false;
                 tank2.resetFuel();
 
@@ -586,13 +599,15 @@ public class InGameScene implements Screen {
 
         } else {
             float horizontalForce = 0F;
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.getFuel() > 0) {
-                horizontalForce -= 1;
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.isTankOnGround(tank2)) {
                 tank2.reduceFuelBy1();
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.getFuel() > 0) {
+
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.getFuel() > 0 && tank2.isTankOnGround(tank2)) {
+                horizontalForce -= 1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.getFuel() > 0 && tank2.isTankOnGround(tank2)) {
                 horizontalForce += 1;
-                tank2.reduceFuelBy1();
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && tank2power > 0) {
                 //change bullet2's position to corner of tank2's turret

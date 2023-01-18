@@ -137,4 +137,13 @@ public class Tank {
         this.fuel = fuel;
         this.realmodeX = x;
     }
+
+    public boolean isTankOnGround(Tank tank){
+        //check by position
+        if(tank.getPosition().getY() <= 175){
+            return true;
+        }
+        return false;
+    }
+
 }

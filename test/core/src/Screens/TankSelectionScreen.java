@@ -145,6 +145,7 @@ public class TankSelectionScreen implements Screen {
 
 
             }
+
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 //                outputLabel.setText("Pressed Text Button");
@@ -287,8 +288,6 @@ public class TankSelectionScreen implements Screen {
     public void render(float delta) {
 
         ScreenUtils.clear(0F, 0F, 0F, 1);
-
-
 
         int tankChoice = Math.abs(globalTankFlag%3);
 

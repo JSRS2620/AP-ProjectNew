@@ -15,11 +15,6 @@ public class MyGdxGame extends Game {
 	private Stage stage;
 	private Game game;
 
-	//constructor
-//	public MyGdxGame(Game game) {
-//		this.game = game;
-//	}
-
 	public MyGdxGame() {
 		game = this;
 	}
@@ -52,12 +47,7 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		//stage.addActor(new MainMenuScreen(this));
-
 		setScreen(new MainMenuScreen(game));
-		//setScreen(new TankSelectionScreen(this));
-		//setScreen(new InGameScreen(this));
-		//setScreen(new PauseInGameScreen(this));
 	}
 
 	@Override
