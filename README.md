@@ -34,3 +34,5 @@ The _assests_ folder contains all the sprites used to make the game.
 
 ## In Game
 
+![](In_Game.png)
+
