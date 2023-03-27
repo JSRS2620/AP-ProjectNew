@@ -21,18 +21,18 @@ The _assests_ folder contains all the sprites used to make the game.
 
 ## Main Menu
 
---- ![](Home_Menu.png)
+![](Home_Menu.png)
 
 
 
 ## Tank Selection
 
-
+![](Select_Tank.png)
 
 
 
 
 ## In Game
 
-
+![](In_Game.png)
 
