@@ -28,7 +28,7 @@ The _assests_ folder contains all the sprites used to make the game.
 ## Tank Selection
 
 
-
+![](Select_Tank.png)
 
 
 
