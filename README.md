@@ -1,4 +1,4 @@
-# AP-ProjectNew
+# Tank Stars
 
 Tank Stars, a two player game wherein players take turns shooting missiles to destroy their opponent's tank.  
 The final project of the course Advanced Programming (CSE201), required usage of principles of OOPS and GUI using Java and Libgdx.  
